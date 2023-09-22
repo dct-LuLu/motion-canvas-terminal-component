@@ -55,14 +55,14 @@ export default makeScene2D(function* (view) {
 
 
     const nn = "  GNU nano 2.9.3"
-    var file: string = term().formatTextList(["File: example.py"], term().getMaxChars())
+    let file: string = term().formatTextList(["File: example.py"], term().getMaxChars())
     const final = nn + file.slice(nn.length, file.length)
     yield* term().line(final, "#060604", '#66e644');
     yield* term().line("\n\n", '#66e644')
     const va = yield* term().line("print('')", '#66e644');
 
     const v = term().getLast()
-    for (var i = 0; i < term().getMaxLines()-3; i++) {
+    for (let i = 0; i < term().getMaxLines()-3; i++) {
         yield* term().newline();
     }
 
@@ -73,10 +73,10 @@ export default makeScene2D(function* (view) {
 
     const shortcuts = ["\n^G", "^O", "^R", "^Y", "^K", "^C", "\n^X", "^J", "^W", "^V", "^U", "^T"]
     const names = [" Get Help ", " WriteOut ", " Read File ", " Prev Page ", " Cut Text  ", " Cur Pos ", " Exit     ", " Justify  ", " Where Is  ", " Next Page ", " UnCut Text", " To Spell  "]
-    var shortcutsref = []
-    var namesref = []
+    let shortcutsref = []
+    let namesref = []
 
-    for (var i = 0; i < shortcuts.length; i++) {
+    for (let i = 0; i < shortcuts.length; i++) {
         shortcutsref[i] = yield* term().line(shortcuts[i], "#060604", '#66e644')
         namesref[i] = yield* term().line(names[i], '#66e644')
     }
@@ -92,7 +92,7 @@ export default makeScene2D(function* (view) {
     yield* waitFor(0.8);
     yield* term().blink()
 
-    for (var i = 0; i < shortcutsref.length; i++) {
+    for (let i = 0; i < shortcutsref.length; i++) {
         shortcutsref[i].text().text("")
         namesref[i].text().text("")
     }

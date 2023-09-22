@@ -1,7 +1,7 @@
-import { initial, signal, colorSignal, canvasStyleSignal } from "@motion-canvas/2d/lib/decorators";
-import { SignalValue, SimpleSignal, createSignal } from "@motion-canvas/core/lib/signals";
+import { initial, signal } from "@motion-canvas/2d/lib/decorators";
+import { SimpleSignal, createSignal } from "@motion-canvas/core/lib/signals";
 import { cancel, ThreadGenerator } from "@motion-canvas/core/lib/threading";
-import { Reference, createRef } from "@motion-canvas/core/lib/utils";
+import { createRef } from "@motion-canvas/core/lib/utils";
 import { loop, waitFor } from "@motion-canvas/core/lib/flow";
 import { InterpolationFunction, TimingFunction } from "@motion-canvas/core/lib/tweening";
 import { Txt, Rect, RectProps } from "@motion-canvas/2d/lib/components";
@@ -10,7 +10,7 @@ import { PossibleCanvasStyle } from "@motion-canvas/2d/lib/partials";
 export interface TerminalProps extends RectProps {
   cursorType?: 'none' | 'line' | 'block',
   blinkSpeed?: number
-};
+}
 
 export interface TerminalTextProps {
   fill?: SimpleSignal<PossibleCanvasStyle>;
@@ -65,14 +65,14 @@ export class Terminal extends Rect {
   * @returns {string} A string with the correct amount of spaces to fill the max string width.
   */
   public formatTextList(textList: string[], maxLineLength: number): string {
-    var totalTextLength = 0
+    let totalTextLength = 0
     for (const text of textList) {totalTextLength += text.length}
     if (totalTextLength+textList.length-1 > maxLineLength) {throw new Error('The total length of the text is greater than the maximum line length')}
 
     const spaceCount = Math.max(0, maxLineLength - totalTextLength) / (textList.length+1);
     const spaces = ' '.repeat(Math.floor(spaceCount));
   
-    var returnString = ''
+    let returnString = ''
     for (const text of textList) {returnString += spaces + text}
 
     const remainingSpaces = ' '.repeat(Math.ceil(maxLineLength - (((textList.length)*spaces.length) + totalTextLength)));
@@ -121,7 +121,7 @@ export class Terminal extends Rect {
   *  if set to `false`, it will not blink and stay visible.
   * 
   */
-  public *blink(enable: boolean = true): ThreadGenerator {
+  public *blink(enable = true): ThreadGenerator {
     if (enable && this.cursorBlinkTask === null) {
       this.cursorBlinkTask = yield loop(Infinity, function* (this: Terminal) {
         this.cursor.opacity(0);
@@ -149,7 +149,7 @@ export class Terminal extends Rect {
   *  @param {string=} promptText - The prompt of the terminal
   *  @param {PossibleColor=} color - The prompt color
   */
-  public *prompt(promptText: string = '$ ', color: PossibleCanvasStyle = "#4d3") {
+  public *prompt(promptText = '$ ', color: PossibleCanvasStyle = "#4d3") {
     yield* this.blink();
     this.add(
       <Rect layout>
@@ -174,7 +174,7 @@ export class Terminal extends Rect {
   *  @param {string=} clearCommand - The command to type before clearing the terminal
   *  @param {number=} time - The time after clear is typed to clean the terminal 
   */
-  public *clear(prompt: boolean = true, fakeClear: boolean = true, clearCommand: string = 'clear', time: number = 0.2) {
+  public *clear(prompt = true, fakeClear = true, clearCommand = 'clear', time = 0.2) {
     if (fakeClear) {
       yield* this.type(clearCommand, 1);
       yield* this.blink()
@@ -245,8 +245,8 @@ export class Terminal extends Rect {
   public *line(content: string, color: PossibleCanvasStyle = this.textStyle.fill(), highlightColor: PossibleCanvasStyle = null) {
     yield* this.blink(false)
     this.cursor.opacity(0);
-    let [first, ...lines] = content.split('\n');
-    let last = this.getLast();
+    const [first, ...lines] = content.split('\n');
+    const last = this.getLast();
     const text= createRef<Txt>();
     const highlight = createRef<Rect>();
     last.add(<Rect ref={highlight} fill={highlightColor}><Txt ref={text} {...this.textStyle} text={first} fill={color}/></Rect>)
