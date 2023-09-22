@@ -1,0 +1,57 @@
+{
+  "name": "motion-canvas-component-library",
+  "version": "0.0.0",
+  "description": "",
+  "scripts": {
+    "prepare": "husky install",
+    "build:dev": "rollup -c rollup.config.mjs",
+    "watch": "rollup -c rollup.config.mjs -w",
+    "build": "cross-env MINIFY=1 rollup -c rollup.config.mjs",
+    "prebuild": "rimraf ./lib",
+    "lint": "npm run eslint && npm run prettier",
+    "format": "npm run eslint:fix && npm run prettier:fix",
+    "eslint": "eslint \"**/*.ts?(x)\"",
+    "eslint:fix": "eslint --fix \"**/*.ts?(x)\"",
+    "prettier": "prettier --check .",
+    "prettier:fix": "prettier --write .",
+    "serve": "vite"
+  },
+  "unpkg": "lib/bundle.js",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "keywords": [
+    "motion-canvas"
+  ],
+  "author": "",
+  "homepage": "",
+  "peerDependencies": {
+    "@motion-canvas/2d": "^3.5.1",
+    "@motion-canvas/core": "^3.4.0",
+    "code-fns": "^0.8.2"
+  },
+  "devDependencies": {
+    "@motion-canvas/ui": "^3.10.0",
+    "@motion-canvas/vite-plugin": "^3.10.0",
+    "@rollup/plugin-terser": "^0.4.3",
+    "@rollup/plugin-typescript": "^11.1.3",
+    "@typescript-eslint/eslint-plugin": "^5.61.0",
+    "@typescript-eslint/parser": "^5.62.0",
+    "cross-env": "^7.0.3",
+    "eslint": "^8.49.0",
+    "eslint-plugin-tsdoc": "^0.2.17",
+    "husky": "^8.0.3",
+    "lint-staged": "^14.0.1",
+    "prettier": "^3.0.3",
+    "rimraf": "^5.0.1",
+    "rollup": "^3.29.2",
+    "rollup-plugin-dts": "^6.0.2",
+    "rollup-plugin-node-externals": "^6.1.1",
+    "typescript": "^5.2.2",
+    "vite": "^4.2.1",
+    "vite-tsconfig-paths": "^4.2.1"
+  },
+  "lint-staged": {
+    "*.{ts,tsx}": "eslint --fix",
+    "*.{js,jsx,ts,tsx,md,scss}": "prettier --write"
+  }
+}
