@@ -4,7 +4,7 @@
 
 ### From git
 
-1. Clone this repo.
+1. Clone this repo. THIS IS JUST A SMALL TEST
 1. Run `npm install <path to this repo>` in your motion canvas project
 1. Set your `vite.config.ts` to look like this:
 
